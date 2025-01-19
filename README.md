@@ -24,5 +24,5 @@ Integrantes de Equipo:
 2. Ejecuta los scripts en `scripts/` en el siguiente orden:  
     - Crea la base de datos: CREATE DATABASE ComercialRita
     - `SCRIPT-Comercial Rita.sql`
-    - `insert_data.sql`  
+    - `insertar_data.sql`  
 3. (Opcional) luego de crear la base de datos. Ejecuta los scripts en `backups/` para restaurar la base de datos directamente.
