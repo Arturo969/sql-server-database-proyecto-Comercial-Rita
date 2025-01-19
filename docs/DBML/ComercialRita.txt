@@ -1,0 +1,82 @@
+Table Producto {
+  ProductoID int [pk, increment]        // Identificador único del producto
+  NombreProducto nvarchar(100) [not null] // Nombre del producto
+  PrecioUnitario decimal(10,2) [not null] // Precio unitario del producto
+  CategoriaID int [ref: > CategoriaProductos.CategoriaID] // Relación con la tabla CategoriaProductos
+  ProveedorID int [ref: > Proveedores.ProveedorID] // Relación con la tabla Proveedores
+  UnidadesEnStock int [not null]         // Unidades en stock
+  Descontinuados int [default: false] // Indica si el producto está descontinuado
+}
+
+Table DetallesVentas {
+  ProductoID int [ref: > Producto.ProductoID] // Relación con la tabla Producto
+  VentaID int [pk, ref: > Ventas.VentaID]  // Identificador de la venta
+  PrecioUnitario decimal(10,2) [not null]   // Precio unitario en la venta
+  Cantidad decimal(10,2) [not null]         // Cantidad de productos vendidos
+  TotalBruto decimal(10,2) [not null]       // Total bruto de la venta (sin descuento)
+  Descuento decimal(10,2)                  // Descuento aplicado en la venta
+  Total decimal(10,2) [not null]           // Total después de descuento
+}
+
+Table CategoriaProductos {
+  CategoriaID int [pk, increment]          // Identificador único de la categoría
+  NombreCategoria varchar(100) [not null]   // Nombre de la categoría
+  Descripcion nvarchar(max)                         // Descripción de la categoría
+}
+
+Table Proveedores {
+  ProveedorID int [pk, increment]          // Identificador único del proveedor
+  NombreProveedores nvarchar(100) [not null] // Nombre del proveedor
+  Telefono varchar(15)                     // Teléfono del proveedor
+  Direccion nvarchar(255)                         // Dirección del proveedor
+  DepartamentoID int [ref: > Departamento.DepartamentoID] // Relación con la tabla Departamento
+  PaisID int [ref: > Pais.PaisID]           // Relación con la tabla Pais
+  AgenciaID int [ref: > Agencia.AgenciaID]  // Relación con la tabla Agencia
+}
+
+Table Empleados {
+  EmpleadoID int [pk, increment]           // Identificador único del empleado
+  NombreEmpleado nvarchar(100) [not null]   // Nombre del empleado
+  ApellidoEmpleado nvarchar(100) [not null] // Apellido del empleado
+  Telefono varchar(15)                     // Teléfono del empleado
+  Titulo nvarchar(50)                       // Título del empleado
+  Direccion nvarchar(255)                           // Dirección del empleado
+  DepartamentoID int [ref: > Departamento.DepartamentoID] // Relación con la tabla Departamento
+  PaisID int [ref: > Pais.PaisID]           // Relación con la tabla Pais
+  FechaNacimiento date                     // Fecha de nacimiento del empleado
+  HireDate date                            // Fecha de contratación del empleado
+}
+
+Table Clientes {
+  ClienteID int [pk, increment]            // Identificador único del cliente
+  NombreCliente nvarchar(100) [not null]    // Nombre del cliente
+  ApellidoCliente nvarchar(100) [not null]  // Apellido del cliente
+  Telefono varchar(15)                     // Teléfono del cliente
+  Direccion nvarchar(255)                           // Dirección del cliente
+  DepartamentoID int [ref: > Departamento.DepartamentoID] // Relación con la tabla Departamento
+  PaisID int [ref: > Pais.PaisID]           // Relación con la tabla Pais
+}
+
+Table Departamento {
+  DepartamentoID int [pk, increment]       // Identificador único del departamento
+  NombreDepartamento nvarchar(100) [not null] // Nombre del departamento
+  CodigoPostal nvarchar(20)                 // Código postal del departamento
+}
+
+Table Pais {
+  PaisID int [pk, increment]               // Identificador único del país
+  NombrePais nvarchar(100) [not null]        // Nombre del país
+}
+
+Table Ventas {
+  VentaID int [pk, increment]              // Identificador único de la venta
+  ClienteID int [ref: > Clientes.ClienteID] // Relación con la tabla Clientes
+  EmpleadoID int [ref: > Empleados.EmpleadoID] // Relación con la tabla Empleados
+  FechaVenta date [not null]               // Fecha de la venta
+}
+
+Table Agencia {
+  AgenciaID int [pk, increment]            // Identificador único de la agencia
+  NombreEmpresa nvarchar(100) [not null]    // Nombre de la agencia
+  Telefono varchar(15)                     // Teléfono de la agencia
+}
