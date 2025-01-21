@@ -1,0 +1,18 @@
+﻿CategoriaID;NombreCategoria;Descripcion
+1;Frutos Secos;Ricos en grasas saludables, proteinas y minerales.
+2;Frutos Deshidratados;Frutas a las que se les ha retirado el agua, conservando su dulzura y nutrientes.
+3;Frutas Procesadas;Frutas que han sido sometidas a algun tipo de transformacion.
+4;Especias;Ingredientes aromaticos que se utilizan para realzar el sabor de los alimentos.
+5;Condimentos;Ingredientes basicos para aderezar y sazonar los alimentos.
+6;Harinas;Polvos obtenidos de la molienda de cereales, legumbres o frutos secos.
+7;Legumbres;Semillas comestibles que son fuentes ricas de proteinas y fibras.
+8;Hierbas y Tisanas;Hojas, flores o plantas secas usadas para infusiones o como remedios naturales.
+9;Semillas;Pequeñas estructuras nutritivas que contienen aceites, fibras y proteinas.
+10;Cereales;Granos integrales o procesados.
+11;Ingredientes para Repostería;Productos especializados para la preparacion de postres y panaderia.
+12;Endulzantes naturales;Alternativas mas saludables a los azucares refinados.
+13;Chocolates;Productos derivados del cacao.
+14;Aceites;Liquidos extraidos de semillas o frutos.
+15;Vinagres;Liquidos fermentados como el vinagre de manzana.
+16;Dulces;Golosinas elaboradas a partir de ingredientes naturales o procesados.
+17;Galletas integrales;Productos horneados elaborados con harinas integrales.

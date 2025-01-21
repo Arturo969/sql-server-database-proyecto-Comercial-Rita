@@ -1,3 +1,10 @@
+IF DB_ID('ComercialRita') IS NOT NULL
+BEGIN
+   	USE MASTER
+   	DROP DATABASE ComercialRita
+END
+CREATE DATABASE ComercialRita
+GO
 USE [ComercialRita]
 GO
 /****** Object:  Table [dbo].[Agencia]    Script Date: 17/01/2025 19:16:29 ******/
