@@ -20,9 +20,8 @@ Integrantes de Equipo:
 - SQL Server Management Studio (SSMS).  
 
 ## Instalación  
-1. Clona este repositorio.  
+1. Clona este repositorio o descargalo en .ZIP
 2. Ejecuta los scripts en `scripts/` en el siguiente orden:  
-    - Crea la base de datos: CREATE DATABASE ComercialRita
     - `SCRIPT-Comercial Rita.sql`
-    - `insertar_data.sql`  
+
 3. (Opcional) luego de crear la base de datos. Ejecuta los scripts en `backups/` para restaurar la base de datos directamente.
