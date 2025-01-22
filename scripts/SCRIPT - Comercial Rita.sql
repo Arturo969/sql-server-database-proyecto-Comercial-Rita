@@ -7,7 +7,7 @@ CREATE DATABASE ComercialRita
 GO
 USE [ComercialRita]
 GO
-/****** Object:  Table [dbo].[Agencia]    Script Date: 17/01/2025 19:16:29 ******/
+/****** Object:  Table [dbo].[Agencia]    Script Date: 22/01/2025 0:43:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22,7 +22,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CategoriaProducto]    Script Date: 17/01/2025 19:16:29 ******/
+/****** Object:  Table [dbo].[CategoriaProducto]    Script Date: 22/01/2025 0:43:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -37,7 +37,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Cliente]    Script Date: 17/01/2025 19:16:29 ******/
+/****** Object:  Table [dbo].[Cliente]    Script Date: 22/01/2025 0:43:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -46,17 +46,17 @@ CREATE TABLE [dbo].[Cliente](
 	[ClienteID] [int] IDENTITY(1,1) NOT NULL,
 	[NombreCliente] [nvarchar](50) NOT NULL,
 	[ApellidoCliente] [nvarchar](50) NOT NULL,
+	[Telefono] [nvarchar](15) NULL,
 	[Direccion] [nvarchar](30) NULL,
 	[DepartamentoID] [int] NULL,
-	[PaisID] [int] NULL,
-	[Telefono] [nvarchar](15) NULL,
+	[CodigoPostal] [nvarchar](10) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ClienteID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Departamento]    Script Date: 17/01/2025 19:16:29 ******/
+/****** Object:  Table [dbo].[Departamento]    Script Date: 22/01/2025 0:43:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -64,7 +64,6 @@ GO
 CREATE TABLE [dbo].[Departamento](
 	[DepartamentoID] [int] IDENTITY(1,1) NOT NULL,
 	[NombreDepartamento] [nvarchar](20) NOT NULL,
-	[CodigoPostal] [nvarchar](6) NULL,
 	[PaisID] [int] NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -72,7 +71,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DetalleVenta]    Script Date: 17/01/2025 19:16:29 ******/
+/****** Object:  Table [dbo].[DetalleVenta]    Script Date: 22/01/2025 0:43:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -87,7 +86,7 @@ CREATE TABLE [dbo].[DetalleVenta](
 	[Total] [decimal](10, 2) NOT NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Empleado]    Script Date: 17/01/2025 19:16:29 ******/
+/****** Object:  Table [dbo].[Empleado]    Script Date: 22/01/2025 0:43:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -97,18 +96,17 @@ CREATE TABLE [dbo].[Empleado](
 	[NombreEmpleado] [nvarchar](50) NOT NULL,
 	[ApellidoEmpleado] [nvarchar](50) NOT NULL,
 	[FechaContrato] [datetime] NULL,
+	[Telefono] [nvarchar](15) NULL,
 	[Direccion] [nvarchar](30) NULL,
 	[FechaNacimiento] [datetime] NULL,
 	[DepartamentoID] [int] NULL,
-	[PaisID] [int] NULL,
-	[Telefono] [nvarchar](15) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[EmpleadoID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Pais]    Script Date: 17/01/2025 19:16:29 ******/
+/****** Object:  Table [dbo].[Pais]    Script Date: 22/01/2025 0:43:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -122,7 +120,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Producto]    Script Date: 17/01/2025 19:16:29 ******/
+/****** Object:  Table [dbo].[Producto]    Script Date: 22/01/2025 0:43:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -141,7 +139,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Proveedor]    Script Date: 17/01/2025 19:16:29 ******/
+/****** Object:  Table [dbo].[Proveedor]    Script Date: 22/01/2025 0:43:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -149,18 +147,17 @@ GO
 CREATE TABLE [dbo].[Proveedor](
 	[ProveedorID] [int] IDENTITY(1,1) NOT NULL,
 	[NombreProveedor] [nvarchar](50) NOT NULL,
+	[Telefono] [nvarchar](15) NULL,
 	[Direccion] [nvarchar](100) NULL,
 	[DepartamentoID] [int] NULL,
-	[PaisID] [int] NULL,
 	[AgenciaID] [int] NULL,
-	[Telefono] [nvarchar](15) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ProveedorID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Venta]    Script Date: 17/01/2025 19:16:29 ******/
+/****** Object:  Table [dbo].[Venta]    Script Date: 22/01/2025 0:43:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -222,23 +219,23 @@ SET IDENTITY_INSERT [dbo].[CategoriaProducto] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Cliente] ON 
 GO
-INSERT [dbo].[Cliente] ([ClienteID], [NombreCliente], [ApellidoCliente], [Direccion], [DepartamentoID], [PaisID], [Telefono]) VALUES (1, N'Anthonela', N'Limay', N'', 2, 1, N'')
+INSERT [dbo].[Cliente] ([ClienteID], [NombreCliente], [ApellidoCliente], [Telefono], [Direccion], [DepartamentoID], [CodigoPostal]) VALUES (1, N'Anthonela', N'Limay', NULL, N'', 2, N'')
 GO
-INSERT [dbo].[Cliente] ([ClienteID], [NombreCliente], [ApellidoCliente], [Direccion], [DepartamentoID], [PaisID], [Telefono]) VALUES (2, N'Arnold', N'Ocas', N'', 2, 1, N'')
+INSERT [dbo].[Cliente] ([ClienteID], [NombreCliente], [ApellidoCliente], [Telefono], [Direccion], [DepartamentoID], [CodigoPostal]) VALUES (2, N'Arnold', N'Ocas', NULL, N'', 2, N'')
 GO
-INSERT [dbo].[Cliente] ([ClienteID], [NombreCliente], [ApellidoCliente], [Direccion], [DepartamentoID], [PaisID], [Telefono]) VALUES (3, N'Arturo', N'Valdiviezo', N'', 2, 1, N'')
+INSERT [dbo].[Cliente] ([ClienteID], [NombreCliente], [ApellidoCliente], [Telefono], [Direccion], [DepartamentoID], [CodigoPostal]) VALUES (3, N'Arturo', N'Valdiviezo', NULL, N'', 2, N'')
 GO
-INSERT [dbo].[Cliente] ([ClienteID], [NombreCliente], [ApellidoCliente], [Direccion], [DepartamentoID], [PaisID], [Telefono]) VALUES (4, N'Darick', N'Pérez', N'', 2, 1, N'')
+INSERT [dbo].[Cliente] ([ClienteID], [NombreCliente], [ApellidoCliente], [Telefono], [Direccion], [DepartamentoID], [CodigoPostal]) VALUES (4, N'Darick', N'Pérez', NULL, N'', 2, N'')
 GO
-INSERT [dbo].[Cliente] ([ClienteID], [NombreCliente], [ApellidoCliente], [Direccion], [DepartamentoID], [PaisID], [Telefono]) VALUES (5, N'Sarah', N'Herrera', N'', 2, 1, N'')
+INSERT [dbo].[Cliente] ([ClienteID], [NombreCliente], [ApellidoCliente], [Telefono], [Direccion], [DepartamentoID], [CodigoPostal]) VALUES (5, N'Sarah', N'Herrera', NULL, N'', 2, N'')
 GO
 SET IDENTITY_INSERT [dbo].[Cliente] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Departamento] ON 
 GO
-INSERT [dbo].[Departamento] ([DepartamentoID], [NombreDepartamento], [CodigoPostal], [PaisID]) VALUES (1, N'Lima', N'', 1)
+INSERT [dbo].[Departamento] ([DepartamentoID], [NombreDepartamento], [PaisID]) VALUES (1, N'Lima', 1)
 GO
-INSERT [dbo].[Departamento] ([DepartamentoID], [NombreDepartamento], [CodigoPostal], [PaisID]) VALUES (2, N'Cajamarca', N'', 1)
+INSERT [dbo].[Departamento] ([DepartamentoID], [NombreDepartamento], [PaisID]) VALUES (2, N'Cajamarca', 1)
 GO
 SET IDENTITY_INSERT [dbo].[Departamento] OFF
 GO
@@ -304,9 +301,9 @@ INSERT [dbo].[DetalleVenta] ([VentaID], [ProductoID], [PrecioUnitario], [Cantida
 GO
 SET IDENTITY_INSERT [dbo].[Empleado] ON 
 GO
-INSERT [dbo].[Empleado] ([EmpleadoID], [NombreEmpleado], [ApellidoEmpleado], [FechaContrato], [Direccion], [FechaNacimiento], [DepartamentoID], [PaisID], [Telefono]) VALUES (1, N'Herrera', N'Pablo', CAST(N'2024-03-25T00:00:00.000' AS DateTime), N'Jr. Juncos con Gladiolos', CAST(N'1987-01-07T00:00:00.000' AS DateTime), 2, 1, N'955967803')
+INSERT [dbo].[Empleado] ([EmpleadoID], [NombreEmpleado], [ApellidoEmpleado], [FechaContrato], [Telefono], [Direccion], [FechaNacimiento], [DepartamentoID]) VALUES (1, N'Herrera', N'Pablo', CAST(N'2024-03-25T00:00:00.000' AS DateTime), N'955967803', N'Jr. Juncos con Gladiolos', CAST(N'1987-01-07T00:00:00.000' AS DateTime), 2)
 GO
-INSERT [dbo].[Empleado] ([EmpleadoID], [NombreEmpleado], [ApellidoEmpleado], [FechaContrato], [Direccion], [FechaNacimiento], [DepartamentoID], [PaisID], [Telefono]) VALUES (2, N'Herrera', N'Camila', CAST(N'2024-03-26T00:00:00.000' AS DateTime), N'Jr. Tulipanes', CAST(N'2007-04-04T00:00:00.000' AS DateTime), 2, 1, N'')
+INSERT [dbo].[Empleado] ([EmpleadoID], [NombreEmpleado], [ApellidoEmpleado], [FechaContrato], [Telefono], [Direccion], [FechaNacimiento], [DepartamentoID]) VALUES (2, N'Herrera', N'Camila', CAST(N'2024-03-26T00:00:00.000' AS DateTime), N'', N'Jr. Tulipanes', CAST(N'2007-04-04T00:00:00.000' AS DateTime), 2)
 GO
 SET IDENTITY_INSERT [dbo].[Empleado] OFF
 GO
@@ -554,13 +551,13 @@ SET IDENTITY_INSERT [dbo].[Producto] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Proveedor] ON 
 GO
-INSERT [dbo].[Proveedor] ([ProveedorID], [NombreProveedor], [Direccion], [DepartamentoID], [PaisID], [AgenciaID], [Telefono]) VALUES (1, N'FrutoLar', N'', 1, 1, 1, N'')
+INSERT [dbo].[Proveedor] ([ProveedorID], [NombreProveedor], [Telefono], [Direccion], [DepartamentoID], [AgenciaID]) VALUES (1, N'FrutoLar', N'', N'1', 1, 1)
 GO
-INSERT [dbo].[Proveedor] ([ProveedorID], [NombreProveedor], [Direccion], [DepartamentoID], [PaisID], [AgenciaID], [Telefono]) VALUES (2, N'FlowersFood', N'', 1, 1, 1, N'')
+INSERT [dbo].[Proveedor] ([ProveedorID], [NombreProveedor], [Telefono], [Direccion], [DepartamentoID], [AgenciaID]) VALUES (2, N'FlowersFood', N'', N'1', 1, 1)
 GO
-INSERT [dbo].[Proveedor] ([ProveedorID], [NombreProveedor], [Direccion], [DepartamentoID], [PaisID], [AgenciaID], [Telefono]) VALUES (3, N'Nutra Estevia', N'', 1, 1, 1, N'')
+INSERT [dbo].[Proveedor] ([ProveedorID], [NombreProveedor], [Telefono], [Direccion], [DepartamentoID], [AgenciaID]) VALUES (3, N'Nutra Estevia', N'', N'1', 1, 1)
 GO
-INSERT [dbo].[Proveedor] ([ProveedorID], [NombreProveedor], [Direccion], [DepartamentoID], [PaisID], [AgenciaID], [Telefono]) VALUES (4, N'Liz Conde', N'', 2, 1, 1, N'')
+INSERT [dbo].[Proveedor] ([ProveedorID], [NombreProveedor], [Telefono], [Direccion], [DepartamentoID], [AgenciaID]) VALUES (4, N'Liz Conde', N'', N'2', 1, 1)
 GO
 SET IDENTITY_INSERT [dbo].[Proveedor] OFF
 GO
@@ -597,9 +594,6 @@ GO
 ALTER TABLE [dbo].[Cliente]  WITH CHECK ADD FOREIGN KEY([DepartamentoID])
 REFERENCES [dbo].[Departamento] ([DepartamentoID])
 GO
-ALTER TABLE [dbo].[Cliente]  WITH CHECK ADD FOREIGN KEY([PaisID])
-REFERENCES [dbo].[Pais] ([PaisID])
-GO
 ALTER TABLE [dbo].[Departamento]  WITH CHECK ADD FOREIGN KEY([PaisID])
 REFERENCES [dbo].[Pais] ([PaisID])
 GO
@@ -614,25 +608,19 @@ REFERENCES [dbo].[Departamento] ([DepartamentoID])
 GO
 ALTER TABLE [dbo].[Empleado] CHECK CONSTRAINT [FK_DepartamentoID]
 GO
-ALTER TABLE [dbo].[Empleado]  WITH CHECK ADD  CONSTRAINT [FK_PaisID] FOREIGN KEY([PaisID])
-REFERENCES [dbo].[Pais] ([PaisID])
-GO
-ALTER TABLE [dbo].[Empleado] CHECK CONSTRAINT [FK_PaisID]
-GO
 ALTER TABLE [dbo].[Producto]  WITH CHECK ADD FOREIGN KEY([CategoriaID])
 REFERENCES [dbo].[CategoriaProducto] ([CategoriaID])
 GO
 ALTER TABLE [dbo].[Producto]  WITH CHECK ADD FOREIGN KEY([ProveedorID])
 REFERENCES [dbo].[Proveedor] ([ProveedorID])
 GO
-ALTER TABLE [dbo].[Proveedor]  WITH CHECK ADD FOREIGN KEY([AgenciaID])
-REFERENCES [dbo].[Agencia] ([AgenciaID])
-GO
 ALTER TABLE [dbo].[Proveedor]  WITH CHECK ADD FOREIGN KEY([DepartamentoID])
 REFERENCES [dbo].[Departamento] ([DepartamentoID])
 GO
-ALTER TABLE [dbo].[Proveedor]  WITH CHECK ADD FOREIGN KEY([PaisID])
-REFERENCES [dbo].[Pais] ([PaisID])
+ALTER TABLE [dbo].[Proveedor]  WITH CHECK ADD  CONSTRAINT [FK_AgenciaID] FOREIGN KEY([AgenciaID])
+REFERENCES [dbo].[Agencia] ([AgenciaID])
+GO
+ALTER TABLE [dbo].[Proveedor] CHECK CONSTRAINT [FK_AgenciaID]
 GO
 ALTER TABLE [dbo].[Venta]  WITH CHECK ADD FOREIGN KEY([ClienteID])
 REFERENCES [dbo].[Cliente] ([ClienteID])
@@ -643,4 +631,8 @@ GO
 ALTER TABLE [dbo].[Producto]  WITH CHECK ADD CHECK  (([PrecioUnitario]>=(0)))
 GO
 ALTER TABLE [dbo].[Producto]  WITH CHECK ADD CHECK  (([UnidadesEnStock]>=(0)))
+GO
+USE [master]
+GO
+ALTER DATABASE [ComercialRita] SET  READ_WRITE 
 GO
