@@ -11,9 +11,9 @@ Integrantes de Equipo:
 ## Contenido  
 - `scripts/`: Contiene los scripts principales para crear la base de datos.  
 - `data/`: Datos iniciales o de ejemplo.  
-- `backups/`: Scripts para backups de ejemplo de la base de datos.  
+- `backups/`: Scripts para programar los backups en la base de datos y descripción del uso de.  
 - `diagrams/`: Diagramas y representaciones visuales del esquema.  
-- `docs/`: Documentación adicional del proyecto.  
+- `docs/`: Documentación adicional del proyecto y Diseño inicial.  
 
 ## Requisitos  
 - SQL Server 2019 o superior.  
