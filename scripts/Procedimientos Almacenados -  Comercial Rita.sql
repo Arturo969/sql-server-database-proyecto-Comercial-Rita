@@ -264,3 +264,24 @@ CREATE PROCEDURE sp_cambiarPrecioUnitario
 
 -- Prueba
 EXEC sp_cambiarPrecioUnitario 1, 41
+
+-- 7. Ingresar Nuevo Empleado
+	CREATE PROCEDURE sp_ingresarNuevoEmpleado
+	@NombreEmpleado NVARCHAR(15),
+	@ApellidoEmpleado NVARCHAR(15),
+	@FechaContrato DATETIME,
+	@Telefono NVARCHAR(15),
+	@Direccion NVARCHAR(30),
+	@FechaNacimiento DATETIME,
+	@DepartamentoID INT,
+	@EstadoEmpleado INT
+	AS
+	BEGIN
+		SET @FechaContrato = GETDATE();
+
+		INSERT INTO Empleado(NombreEmpleado, ApellidoEmpleado, FechaContrato, Telefono, Direccion, FechaNacimiento, DepartamentoID, EstadoEmpleado)
+		VALUES (@NombreEmpleado, @ApellidoEmpleado, @FechaContrato, @Telefono, @Direccion, @FechaNacimiento, @DepartamentoID, @EstadoEmpleado)
+	END
+
+--Prueba
+	EXEC sp_ingresarNuevoEmpleado 'Eduardo', 'Herrera', NULL , NULL, NULL, NULL, NULL, 1

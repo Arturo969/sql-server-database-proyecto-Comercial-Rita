@@ -161,5 +161,24 @@ GO
 --PRUEBA
 SELECT*FROM ProductosDescontinuados
 
+-- Empleados Desempleados
+CREATE VIEW v_empleadosDesempleados
+	AS
+		SELECT *
+		FROM Empleado
+		WHERE EstadoEmpleado = '3'
+
+--PRUEBA
+SELECT*FROM v_empleadosDesempleados
+
+-- Empleados Activos
+CREATE VIEW v_empleadosActivos
+	AS
+		SELECT *
+		FROM Empleado
+		WHERE EstadoEmpleado = '1'
+
+--PRUEBA
+SELECT*FROM v_empleadosActivos
 
 

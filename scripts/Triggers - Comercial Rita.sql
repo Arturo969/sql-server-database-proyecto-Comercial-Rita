@@ -1,16 +1,5 @@
 use ComercialRita
 
--- TRIGGERS
-
--- AGENCIA
-
--- CATEGORIA PRODUCTO
-
--- CLIENTE
-
--- DEPARTAMENTO
-
-
 -- DETALLE VENTA
 	-- Calcular PrecioUnitario, Total Bruto y total general
 	CREATE TRIGGER trg_CalcularTotales
@@ -67,107 +56,6 @@ use ComercialRita
 
 	INSERT INTO DetalleVenta(VentaID, ProductoID, Cantidad)
 	VALUES	(4, 13, 0.5)
-
-	-- PROC. ALM. PARA LA INSERCIÓN DE DETALLE DE VENTA
-	
-SELECT * FROM DetalleVenta
-SELECT * FROM Venta
-	ALTER PROCEDURE sp_AgregarDetalleVenta
-    @NombreCliente NVARCHAR(100),
-    @ApellidoCliente NVARCHAR(100),
-    @EmpleadoID INT,
-    @VentaID INT,
-    @ProductoID INT,
-    @Cantidad DECIMAL(10,2)
-	AS
-		BEGIN
-			BEGIN TRY
-				BEGIN TRANSACTION; 
-				DECLARE @ClienteID INT;
-				-- Intentamos obtener el ClienteID
-				SELECT @ClienteID = ClienteID
-				FROM Cliente
-				WHERE NombreCliente = @NombreCliente
-					  AND ApellidoCliente = @ApellidoCliente;
-
-				IF @ClienteID IS NULL
-				BEGIN
-					-- insertando nuevo cliente
-					EXEC sp_InsertarSoloNombreYApellidoCliente @NombreCliente, @ApellidoCliente;
-					-- reaccinando clienteID
-					SELECT @ClienteID = ClienteID
-					FROM Cliente
-					WHERE NombreCliente = @NombreCliente 
-						  AND ApellidoCliente = @ApellidoCliente;
-				END;
-
-				-- Intentamos obtener el ID de la venta
-				DECLARE @VentaIDAuxiliar INT;
-
-				IF @VentaID = (SELECT MAX(VentaID) + 1 FROM Venta)
-				BEGIN
-				-- SI VENTAID ES MAYOR A LA ULTIMA VENTA, SE AGREGA LA NUEVA VENTA
-					EXEC sp_ingresarNuevaVenta @ClienteID, @EmpleadoID;
-					PRINT 'Venta insertada correctamente.';
-
-					-- reaccinando ventaID
-					SELECT @VentaIDAuxiliar = MAX(VentaID) 
-					FROM Venta
-					WHERE ClienteID = @ClienteID;
-				END; 
-				-- SI VENTAID ES MAYOR A LA ULTIMA VENTA O SIGUIENTE, SE CANCELA LA OPERACIÓN
-				IF @VentaID > (SELECT MAX(VentaID) + 1 FROM Venta)
-				BEGIN
-					ROLLBACK TRANSACTION;
-					PRINT 'La venta no se puede generar, conflicto con VentaID.';
-					RETURN;
-				END;
-
-				-- SI VENTAID ES MENOR A LA ULTIMA VENTA, SE CANCELA LA OPERACIÓN
-				IF @VentaID < ((SELECT MAX(VentaID) FROM Venta))
-					BEGIN
-						ROLLBACK TRANSACTION;
-						PRINT 'No se puede ingresar un producto en una venta anterior.';
-						RETURN;
-					END;
-				-- SI VENTAID ES IGUAL A LA ULTIMA VENTA, SE AGREGA EL NUEVO PRODUCTO
-				IF @VentaID = (SELECT MAX(VentaID) FROM Venta)
-				BEGIN
-					SET @VentaIDAuxiliar = @VentaID;
-				END
-				-- CALCULAMOS EL DESCUENTO
-				DECLARE @Descuento DECIMAL (10,2);
-				SET @Descuento = dbo.fn_CalcularDescuento(@Cantidad);
-
-				-- INSERTAMOS UN NUEVO PRODUTO EN EL DETALLE DE VENTA
-				INSERT INTO DetalleVenta (VentaID, ProductoID, Cantidad, Descuento)
-				VALUES (@VentaIDAuxiliar, @ProductoID, @Cantidad, @Descuento);
-
-				COMMIT TRANSACTION;
-				PRINT 'Detalle de venta insertada correctamente.';
-
-			END TRY
-			BEGIN CATCH
-				IF @@TRANCOUNT > 0
-					ROLLBACK TRANSACTION;
-
-				-- Mostrar el mensaje de error
-				DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
-				PRINT 'Error: ' + @ErrorMessage;
-				RAISERROR (@ErrorMessage, 16, 1);
-			END CATCH
-		END;
-
-	EXEC sp_AgregarDetalleVenta 'Anthonela', 'Limay', 1, 11, 70, 1
-
-	DELETE FROM DetalleVenta WHERE VentaID = 11 AND ProductoID = 8
-
-	select * from Venta
-	select * from DetalleVenta
--- EMPLEADO
-
--- PAIS
-
 
 --PRODUCTO
 -- Guardar en una tabla todas las actualizaciones de los precios de los productos
@@ -248,18 +136,75 @@ SELECT * FROM Venta
 	select * from DetalleVenta
 	select * from Producto
 
-	-- INGRESAR PRODUCTO
+	-- ELIMINAR PRODUCTO
+	CREATE TRIGGER trg_eliminarProducto
+	ON Producto
+	INSTEAD OF DELETE
+	AS
+		BEGIN
+			ROLLBACK TRANSACTION;
+			--PRINT 'No se pueden eliminar ni actualizar los detalles de venta una vez procesados.'
+			RAISERROR('No se permite eliminar un producto, solo se puede modificar le estado a "Descontinuado (1)".', 16, 1);
+		END
+
+	--PRUEBA
+	DELETE Producto WHERE ProductoID = 117
 
 
+-- EMPLEADO
 
--- PROVEEDOR
-select * from Proveedor
-select * from Empleado
-UPDATE Empleado
-SET NombreEmpleado = 'Camila', ApellidoEmpleado = 'Herrera'
-WHERE EmpleadoID = 2
+	-- ELIMINAR EMPLEADO
+	CREATE TRIGGER trg_eliminarEmpleado
+	ON Empleado
+	INSTEAD OF DELETE
+	AS
+		BEGIN
+			ROLLBACK TRANSACTION;
+			--PRINT 'No se pueden eliminar ni actualizar los detalles de venta una vez procesados.'
+			RAISERROR('No se permite eliminar un Empleado, solo se puede modificar le estado a "Desempleado (3)".', 16, 1);
+		END
 
--- VENTA
-select * from Venta
+	--PRUEBA
+	DELETE Empleado WHERE EmpleadoID = 4
 
-DBCC CHECKIDENT ('ComercialRita.dbo.Venta',RESEED, 10)
+	-- Cambio de estado de un empleado
+	CREATE TRIGGER trg_cambioEstadoEmpleado
+	ON Empleado
+	AFTER UPDATE
+	AS
+		BEGIN
+			IF UPDATE(EstadoEmpleado)
+				BEGIN
+					-- Insertar registros en la tabla de auditoría
+					INSERT INTO CambioEstadoEmpleado (EmpleadoID, NombreEmpleado, ApellidoEmpleado, EstadoAnterior, EstadoActual, FechaCambio)
+					SELECT 
+						d.EmpleadoID,              -- ID del empleado
+						d.NombreEmpleado,          -- Nombre antes del cambio
+						d.ApellidoEmpleado,        -- Apellido antes del cambio
+						d.EstadoEmpleado AS EstadoAnterior, -- Estado anterior desde la tabla DELETED
+						i.EstadoEmpleado AS EstadoActual,   -- Estado nuevo desde la tabla INSERTED
+						GETDATE()                  -- Fecha y hora del cambio
+					FROM DELETED d
+					INNER JOIN INSERTED i ON d.EmpleadoID = i.EmpleadoID -- Relación entre registros antiguos y nuevos
+					WHERE d.EstadoEmpleado != i.EstadoEmpleado; -- Solo registrar si hubo un cambio real
+				END
+		END
+
+
+	CREATE TABLE CambioEstadoEmpleado (
+		CambioEstadoID INT IDENTITY(1,1) PRIMARY KEY,
+		EmpleadoID INT,
+		NombreEmpleado NVARCHAR(50),
+		ApellidoEmpleado NVARCHAR(50),
+		EstadoAnterior INT,
+		EstadoActual INT,
+		FechaCambio DATETIME DEFAULT GETDATE()
+	)
+
+	SELECT * FROM CambioEstadoEmpleado
+	SELECT * FROM Empleado
+
+	UPDATE Empleado
+	SET EstadoEmpleado = 2
+	WHERE EmpleadoID = 2
+	
