@@ -15,9 +15,10 @@ Integrantes de Equipo:
 - `diagrams/`: Diagramas y representaciones visuales del esquema.  
 - `docs/`: Documentación adicional del proyecto y Diseño inicial.  
 
-## Requisitos  
+## Requisitos
 - SQL Server 2019 o superior.  
-- SQL Server Management Studio (SSMS).  
+- SQL Server Management Studio (SSMS).
+- Amazon S3.
 
 ## Instalación  
 1. Clona este repositorio o descargalo en .ZIP
