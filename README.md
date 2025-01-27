@@ -11,7 +11,7 @@ Integrantes de Equipo:
 ## Contenido  
 - `scripts/`: Contiene los scripts principales para crear la base de datos.  
 - `data/`: Datos iniciales o de ejemplo.  
-- `backups/`: Scripts para programar los backups en la base de datos y descripción del uso de.  
+- `backups/`: Scripts para programar los backups en la base de datos y descripción del uso de Amazone S3 para el almacenamiento en el Storage
 - `diagrams/`: Diagramas y representaciones visuales del esquema.  
 - `docs/`: Documentación adicional del proyecto y Diseño inicial.  
 
@@ -22,6 +22,6 @@ Integrantes de Equipo:
 ## Instalación  
 1. Clona este repositorio o descargalo en .ZIP
 2. Ejecuta los scripts en `scripts/` en el siguiente orden:  
-    - `SCRIPT-Comercial Rita.sql`
-
-3. (Opcional) luego de crear la base de datos. Ejecuta los scripts en `backups/` para restaurar la base de datos directamente.
+    - `Script Completo - Comercial Rita.sql`
+## Bakup | Storage
+- En `backups/`, se encuentran los scripts de los backups Completos, Diferenciales y de Transacciones implementados para el uso del Storage.
