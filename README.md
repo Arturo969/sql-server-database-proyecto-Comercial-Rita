@@ -9,7 +9,7 @@ Integrantes de Equipo:
 - Valdiviezo Zavaleta, Jesús Arturo.
 
 ## Contenido  
-- `scripts/`: Contiene los scripts principales para crear la base de datos.  
+- `scripts/`: Contiene los scripts principales para crear la base de datos. Además, los scrips usados en la implementación de vistas, procedimientos almacenados, funciones, triggers y la asignación de logins, usuarios y roles.  
 - `data/`: Datos iniciales o de ejemplo.  
 - `backups/`: Scripts para programar los backups en la base de datos y descripción del uso de Amazone S3 para el almacenamiento en el Storage
 - `diagrams/`: Diagramas y representaciones visuales del esquema.  
