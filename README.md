@@ -24,5 +24,6 @@ Integrantes de Equipo:
 1. Clona este repositorio o descargalo en .ZIP
 2. Ejecuta los scripts en `scripts/` en el siguiente orden:  
     - `Script Completo - Comercial Rita.sql`
+    - `CrearLogins.sql` (Estos logins son referenciales. Pueden ser modificados o personalizados. Pero deben ser 4, 3 para empleados y 2 para Administrador)
 ## Bakup | Storage
 - En `backups/`, se encuentran los scripts de los backups Completos, Diferenciales y de Transacciones implementados para el uso del Storage.
